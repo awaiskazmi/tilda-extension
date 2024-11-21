@@ -5,14 +5,16 @@ import App from "./App";
 
 export default defineContentScript({
   // matches: ["<all_urls>"],
-  matches: ["*://*.youtube.com/watch*"],
+  matches: ["*://*.youtube.com/*"],
   // 2. Set cssInjectionMode
   cssInjectionMode: "ui",
+  runAt: "document_end",
 
   async main(ctx) {
     // 3. Define your UI
     const ui = await createShadowRootUi(ctx, {
-      name: "dc-yt-aspect",
+      name: "dc-tilda",
+      anchor: document.documentElement,
       position: "inline",
       isolateEvents: true,
       onMount: (container) => {

@@ -15,23 +15,44 @@ const App = () => {
   const indexRef = useRef(index);
   const timerRef = useRef(0);
 
-  const videoAdModule = document.querySelector(".ytp-ad-module");
-  const videoPlayer = document.querySelector(".html5-video-player");
-  const videoContainer = document.querySelector(".html5-video-container");
-  const video = document.querySelector(".video-stream");
+  const videoAdModuleRef = useRef<Element | null>(null);
+  const videoPlayerRef = useRef<Element | null>(null);
+  const videoContainerRef = useRef<Element | null>(null);
+  const videoRef = useRef<Element | null>(null);
 
-  videoAdModule?.classList.add(CUSTOM_CLASS_AD_MODULE);
-  videoPlayer?.classList.add(CUSTOM_CLASS_PLAYER);
-  videoContainer?.classList.add(CUSTOM_CLASS_CONTAINER);
-  video?.classList.add(CUSTOM_CLASS_VIDEO);
+  const prepareElements = () => {
+    if (!videoAdModuleRef.current) {
+      videoAdModuleRef.current = document.querySelector(".ytp-ad-module");
+      videoAdModuleRef.current?.classList.add(CUSTOM_CLASS_AD_MODULE);
+    }
+
+    if (!videoPlayerRef.current) {
+      videoPlayerRef.current = document.querySelector(".html5-video-player");
+      videoPlayerRef.current?.classList.add(CUSTOM_CLASS_PLAYER);
+    }
+
+    if (!videoContainerRef.current) {
+      videoContainerRef.current = document.querySelector(
+        ".html5-video-container"
+      );
+      videoContainerRef.current?.classList.add(CUSTOM_CLASS_CONTAINER);
+    }
+
+    if (!videoRef.current) {
+      videoRef.current = document.querySelector(".video-stream");
+      videoRef.current?.classList.add(CUSTOM_CLASS_VIDEO);
+    }
+  };
 
   const updateIndex = (value: number) => {
     indexRef.current = value;
     setIndex(value);
   };
 
-  const eventListener = (e: any) => {
-    if (videoContainer && e.code === "Backquote") {
+  const eventListener = async (e: any) => {
+    await prepareElements();
+
+    if (videoContainerRef.current && e.code === "Backquote") {
       if (indexRef.current >= CLASSLIST.length - 1) {
         updateIndex(0);
       } else {
@@ -39,13 +60,13 @@ const App = () => {
       }
 
       // 1. remove all classes starting with dc_yt
-      const classes = videoContainer?.className
+      const classes = videoContainerRef.current?.className
         .split(" ")
         .filter((c) => !c.startsWith(CLASS_PREFIX));
-      videoContainer.className = classes.join(" ").trim();
+      videoContainerRef.current.className = classes.join(" ").trim();
 
       // 2. add next class in line from array
-      videoContainer.classList.add(
+      videoContainerRef.current.classList.add(
         `${CLASS_PREFIX}${CLASSLIST[indexRef.current]}`
       );
 
@@ -54,10 +75,24 @@ const App = () => {
     }
   };
 
+  const locationChageListener = () => {
+    if (videoContainerRef.current) {
+      const classes = videoContainerRef.current?.className
+        .split(" ")
+        .filter((c) => !c.startsWith(CLASS_PREFIX));
+      videoContainerRef.current.className = classes.join(" ").trim();
+
+      updateIndex(0);
+    }
+  };
+
   useEffect(() => {
-    document.addEventListener("keypress", eventListener);
+    window.addEventListener("keypress", eventListener);
+    window.addEventListener("yt-navigate-start", locationChageListener);
     return () => {
-      document.removeEventListener("keypress", eventListener);
+      window.removeEventListener("keypress", eventListener);
+      window.removeEventListener("yt-navigate-start", locationChageListener);
+
       clearTimeout(timerRef.current);
     };
   }, []);

@@ -6,7 +6,7 @@ function App() {
         <em>Tilda</em> is the world's #1 aspect ratio adjuster for YouTube!
       </p>
       <p className="text-base">
-        When watching a video on YouTube, just press the `~` (tilda) key on your
+        When watching a video on YouTube, just press the `~` (tilde) key on your
         keyboard to cycle through the various aspect ratios and enjoy your
         favorite content without those annoying black bars!
       </p>

@@ -5,7 +5,7 @@ export default defineBackground(() => {
   ];
 
   /**
-   * run on first install
+   * run on install
    */
   chrome.runtime.onInstalled.addListener(async (details) => {
     const { reason } = details;
