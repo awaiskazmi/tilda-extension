@@ -8,11 +8,12 @@ function App() {
         Say Goodbye to Black Bars!
       </p>
       <p className="text-center text-xs text-zinc-600 font-sans leading-relaxed">
-        Simply press the{" "}
+        Press the{" "}
         <span className="h-5 w-5 inline-flex items-center justify-center rounded-md bg-zinc-100 font-bold">
           ~
         </span>{" "}
-        key while watching a YouTube video and enjoy true fullscreen!
+        key while watching a YouTube video to resize and enjoy it in true
+        full-screen!
       </p>
     </div>
   );

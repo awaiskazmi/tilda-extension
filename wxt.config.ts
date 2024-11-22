@@ -8,8 +8,9 @@ export default defineConfig({
     author: {
       email: "awais.k.ali@gmail.com",
     },
-    name: "tilda: YouTube Black Bars Remover",
-    description: "Say Goodbye to Black Bars!",
+    name: "tilda: Remove Black Bars on YouTube",
+    description:
+      "tilda is a browser extension that resizes YouTube videos and removes those annoying black bars so you can enjoy your videos in true full-screen.",
     icons: {
       16: "/icon16.png",
       32: "/icon32.png",
