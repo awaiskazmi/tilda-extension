@@ -6,7 +6,9 @@ import {
   CLASSLIST,
   CLASS_PREFIX,
 } from "@/data/constants";
+
 import { useState, useEffect, useRef } from "react";
+import { AnimatePresence, motion } from "motion/react";
 
 const App = () => {
   const [index, setIndex] = useState(0);
@@ -89,10 +91,10 @@ const App = () => {
   useEffect(() => {
     window.addEventListener("keypress", eventListener);
     window.addEventListener("yt-navigate-start", locationChageListener);
+
     return () => {
       window.removeEventListener("keypress", eventListener);
       window.removeEventListener("yt-navigate-start", locationChageListener);
-
       clearTimeout(timerRef.current);
     };
   }, []);
@@ -102,16 +104,25 @@ const App = () => {
 
     timerRef.current = window.setTimeout(() => {
       setShow(false);
-    }, 300);
+    }, 2000);
 
     return () => clearTimeout(timerRef.current);
-  }, [show]);
+  }, [index]);
 
-  return show ? (
-    <div className="fixed top-20 right-20 text-9xl text-white font-sans font-light">
-      {CLASSLIST[index]}
-    </div>
-  ) : null;
+  return (
+    <AnimatePresence>
+      {show ? (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed top-20 right-20 text-8xl 2xl:text-9xl text-white text-shadow font-sans font-light"
+        >
+          {CLASSLIST[index]}
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
+  );
 };
 
 export default App;

@@ -3,5 +3,9 @@
 @tailwind utilities;
 
 :host {
-  @apply fixed z-[9999];
+  @apply fixed z-[9999] font-sans;
+}
+
+:root {
+  --tw-shadow-color: #000;
 }

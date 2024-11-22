@@ -1,6 +1,6 @@
-/* .dc_yt_ad_module {
-  display: none !important;
-} */
+.dc_yt_ad_module {
+  position: absolute !important;
+}
 
 .dc_yt_player {
   display: flex !important;
@@ -9,14 +9,12 @@
 }
 
 .dc_yt_container {
-  height: 100% !important;
-  top: 0 !important;
-  left: 0 !important;
   max-width: 100% !important;
-  width: 100%;
+  max-height: 100% !important;
 }
 
 .dc_yt_video {
+  position: static !important;
   margin: 0 auto !important;
   -o-object-fit: cover !important;
   object-fit: cover !important;
@@ -42,12 +40,12 @@
   left: 0 !important;
 }
 
-.dc_yt_aspect-DEFAULT {
+.dc_yt_aspect-Default {
   aspect-ratio: unset !important;
   width: 100%;
 }
 
-.dc_yt_aspect-DEFAULT .dc_yt_video {
+.dc_yt_aspect-Default .dc_yt_video {
   width: auto;
   top: unset;
   left: unset;
@@ -56,59 +54,70 @@
 .dc_yt_aspect-16\:9 {
   aspect-ratio: 16/9 !important;
   width: auto !important;
+  height: 100% !important;
 }
 
 .dc_yt_aspect-4\:3 {
   aspect-ratio: 4/3 !important;
   width: auto !important;
+  height: 100% !important;
 }
 
 .dc_yt_aspect-1\.85\:1 {
   aspect-ratio: 1.85/1 !important;
-  width: auto !important;
+  width: 100% !important;
+  height: auto !important;
 }
 
 .dc_yt_aspect-2\.22\:1 {
   aspect-ratio: 2.22/1 !important;
-  width: auto !important;
+  width: 100% !important;
+  height: auto !important;
 }
 
 .dc_yt_aspect-2\.35\:1 {
   aspect-ratio: 2.35/1 !important;
-  width: auto !important;
+  width: 100% !important;
+  height: auto !important;
 }
 
 .dc_yt_aspect-2\.39\:1 {
   aspect-ratio: 2.39/1 !important;
-  width: auto !important;
+  width: 100% !important;
+  height: auto !important;
 }
 
 .dc_yt_aspect-5\:3 {
   aspect-ratio: 5/3 !important;
   width: auto !important;
+  height: 100% !important;
 }
 
 .dc_yt_aspect-5\:4 {
   aspect-ratio: 5/4 !important;
   width: auto !important;
+  height: 100% !important;
 }
 
 .dc_yt_aspect-1\:1 {
   aspect-ratio: 1/1 !important;
-  width: auto !important;
+  height: 100% !important;
 }
 
 .dc_yt_aspect-9\:16 {
   aspect-ratio: 9/16 !important;
   width: auto !important;
+  height: 100% !important;
 }
 
 .dc_yt_aspect-16\:10 {
   aspect-ratio: 16/10 !important;
   width: auto !important;
+  height: 100% !important;
 }
 
 .dc_yt_aspect-32\:9 {
   aspect-ratio: 32/9 !important;
-  width: auto !important;
+  width: 100% !important;
+  height: auto !important;
 }

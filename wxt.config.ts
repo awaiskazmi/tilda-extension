@@ -8,8 +8,8 @@ export default defineConfig({
     author: {
       email: "awais.k.ali@gmail.com",
     },
-    name: "Tilda - No more black bars!",
-    description: "World's #1 aspect ratio adjuster for YouTube!",
+    name: "tilda: YouTube Black Bars Remover",
+    description: "Say Goodbye to Black Bars!",
     icons: {
       16: "/icon16.png",
       32: "/icon32.png",

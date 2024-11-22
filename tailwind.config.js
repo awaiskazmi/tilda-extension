@@ -8,6 +8,10 @@ export default {
   content: ["./entrypoints/**/*.{js,ts,jsx,tsx,html}"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Inter", "system-ui"],
+        serif: "Space Grotesk",
+      },
       fontSize: {
         "text-xs": "12px",
         "text-sm": "14px",
@@ -62,7 +66,7 @@ export default {
       },
       textShadow: {
         sm: "0 1px 2px var(--tw-shadow-color)",
-        DEFAULT: "0 2px 4px var(--tw-shadow-color)",
+        DEFAULT: "0 4px 8px var(--tw-shadow-color)",
         lg: "0 8px 16px var(--tw-shadow-color)",
       },
     },

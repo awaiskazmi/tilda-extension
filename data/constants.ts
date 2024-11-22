@@ -5,7 +5,7 @@ export const CUSTOM_CLASS_VIDEO = "dc_yt_video";
 
 export const CLASS_PREFIX = "dc_yt_aspect-";
 export const CLASSLIST = [
-  "DEFAULT",
+  "Default",
   "16:9",
   "4:3",
   "1.85:1",
