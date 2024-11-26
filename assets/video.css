@@ -121,3 +121,27 @@
   width: 100% !important;
   height: auto !important;
 }
+
+.dc_yt_aspect-16\:9-stretch {
+  aspect-ratio: 2.39/1 !important;
+  width: auto !important;
+  height: 100% !important;
+  max-width: none !important;
+}
+
+.dc_yt_aspect-16\:9-stretch .dc_yt_video {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.dc_yt_aspect-16\:9-stretch-alt {
+  aspect-ratio: 32/9 !important;
+  width: auto !important;
+  height: 100% !important;
+  max-width: none !important;
+}
+
+.dc_yt_aspect-16\:9-stretch-alt .dc_yt_video {
+  width: 100% !important;
+  height: 100% !important;
+}

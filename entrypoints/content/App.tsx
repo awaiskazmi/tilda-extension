@@ -69,7 +69,7 @@ const App = () => {
 
       // 2. add next class in line from array
       videoContainerRef.current.classList.add(
-        `${CLASS_PREFIX}${CLASSLIST[indexRef.current]}`
+        `${CLASS_PREFIX}${CLASSLIST[indexRef.current].className}`
       );
 
       // 3. Show current settings
@@ -118,7 +118,7 @@ const App = () => {
           exit={{ opacity: 0 }}
           className="fixed top-20 right-20 text-8xl 2xl:text-9xl text-white text-shadow font-sans font-light"
         >
-          {CLASSLIST[index]}
+          {CLASSLIST[index].label}
         </motion.div>
       ) : null}
     </AnimatePresence>
