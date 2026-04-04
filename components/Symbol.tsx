@@ -27,8 +27,8 @@ const Symbol = ({ className = "" }) => {
           y2="128"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#00F3B9" />
-          <stop offset="1" stop-color="#DB00FF" />
+          <stop stopColor="#00F3B9" />
+          <stop offset="1" stopColor="#DB00FF" />
         </linearGradient>
         <clipPath id="clip0_941_14">
           <rect width="128" height="128" fill="white" />

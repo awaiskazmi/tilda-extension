@@ -2,7 +2,6 @@ import { defineConfig } from "wxt";
 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
-  extensionApi: "chrome",
   modules: ["@wxt-dev/module-react"],
   manifest: {
     author: {
@@ -17,5 +16,15 @@ export default defineConfig({
       48: "/icon48.png",
       128: "/icon128.png",
     },
+    permissions: ['activeTab', 'storage'],
+    commands: {
+      'tilda': {
+        suggested_key: {
+          default: 'Ctrl+Shift+V',
+          mac: 'Command+Shift+V',
+        },
+        description: 'Activate Tilda'
+      }
+    }
   },
 });

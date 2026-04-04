@@ -48,7 +48,7 @@ const Logo = ({ className = "" }) => {
           gradientUnits="userSpaceOnUse"
         >
           <stop stopColor="#00F3B9" />
-          <stop offset="1" stop-color="#DB00FF" />
+          <stop offset="1" stopColor="#DB00FF" />
         </linearGradient>
         <clipPath id="clip0_941_20">
           <rect

@@ -10,6 +10,8 @@ import {
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
+const ALLOWED_KEYCODES = ['Backquote', 'KeyV']
+
 const App = () => {
   const [index, setIndex] = useState(0);
   const [show, setShow] = useState(false);
@@ -21,6 +23,41 @@ const App = () => {
   const videoPlayerRef = useRef<Element | null>(null);
   const videoContainerRef = useRef<Element | null>(null);
   const videoRef = useRef<Element | null>(null);
+
+  const resizeVideo = async (e?: any, manual?: string) => {
+    if (e && ALLOWED_KEYCODES.indexOf(e.code) < 0) return;
+    if (!videoContainerRef.current) return;
+
+    if (indexRef.current >= CLASSLIST.length - 1) {
+      updateIndex(0);
+    } else {
+      if (manual) {
+        updateIndex(CLASSLIST.findIndex(el => el.className === manual))
+      } else {
+        updateIndex(indexRef.current + 1);
+      }
+    }
+
+    // 1. remove all classes starting with dc_yt
+    const classes = videoContainerRef.current.className
+      .split(" ")
+      .filter((c) => !c.startsWith(CLASS_PREFIX));
+    videoContainerRef.current.className = classes.join(" ").trim();
+
+    // 2. add next class in line from array
+    if (manual) {
+      videoContainerRef.current.classList.add(
+        `${CLASS_PREFIX}${manual}`
+      );
+    } else {
+      videoContainerRef.current.classList.add(
+        `${CLASS_PREFIX}${CLASSLIST[indexRef.current].className}`
+      );
+    }
+
+    // 3. Show current settings
+    setShow(true);
+  }
 
   const prepareElements = () => {
     if (!videoAdModuleRef.current) {
@@ -51,33 +88,18 @@ const App = () => {
     setIndex(value);
   };
 
-  const eventListener = async (e: any) => {
+  const tilda = async (e?: any, manual?: string) => {
     await prepareElements();
+    await resizeVideo(e, manual);
+  }
 
-    if (videoContainerRef.current && e.code === "Backquote") {
-      if (indexRef.current >= CLASSLIST.length - 1) {
-        updateIndex(0);
-      } else {
-        updateIndex(indexRef.current + 1);
-      }
-
-      // 1. remove all classes starting with dc_yt
-      const classes = videoContainerRef.current?.className
-        .split(" ")
-        .filter((c) => !c.startsWith(CLASS_PREFIX));
-      videoContainerRef.current.className = classes.join(" ").trim();
-
-      // 2. add next class in line from array
-      videoContainerRef.current.classList.add(
-        `${CLASS_PREFIX}${CLASSLIST[indexRef.current].className}`
-      );
-
-      // 3. Show current settings
-      setShow(true);
-    }
+  const eventListener = async (e: any) => {
+    await tilda(e);
   };
 
-  const locationChageListener = () => {
+  const locationChageListener = async () => {
+    await storage.clear('local');
+
     if (videoContainerRef.current) {
       const classes = videoContainerRef.current?.className
         .split(" ")
@@ -89,12 +111,23 @@ const App = () => {
   };
 
   useEffect(() => {
+    browser.runtime.onMessage.addListener(async (message) => {
+      if (message.type === 'TILDA') {
+        await tilda();
+      }
+      if (message.type === 'SELECT') {
+        await tilda(undefined, message.value)
+      }
+    })
+  }, [])
+
+  useEffect(() => {
     window.addEventListener("keypress", eventListener);
-    window.addEventListener("yt-navigate-start", locationChageListener);
+    window.addEventListener("yt-navigate-finish", locationChageListener);
 
     return () => {
       window.removeEventListener("keypress", eventListener);
-      window.removeEventListener("yt-navigate-start", locationChageListener);
+      window.removeEventListener("yt-navigate-finish", locationChageListener);
       clearTimeout(timerRef.current);
     };
   }, []);

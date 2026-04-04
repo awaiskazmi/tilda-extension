@@ -1,37 +1,41 @@
 export default defineBackground(() => {
   let reasons = [
-    chrome.runtime.OnInstalledReason.INSTALL,
-    chrome.runtime.OnInstalledReason.UPDATE,
+    "install",
+    "update"
   ];
 
-  /**
-   * run on install
-   */
-  chrome.runtime.onInstalled.addListener(async (details) => {
+  browser.runtime.onInstalled.addListener(async (details) => {
     const { reason } = details;
 
     if (reasons.indexOf(reason) >= 0) {
-      // chrome.tabs.create({
-      //   url: "onboarding.html",
-      // });
-
-      let manifest = await chrome.runtime.getManifest();
+      let manifest = await browser.runtime.getManifest();
 
       if (manifest.content_scripts) {
         for (const cs of manifest.content_scripts) {
-          for (const tab of await chrome.tabs.query({ url: cs.matches })) {
-            if (tab.url!.match(/(chrome|chrome-extension):\/\//gi)) {
+          for (const tab of await browser.tabs.query({ url: cs.matches })) {
+            if (tab.url!.match(/(browser|browser-extension):\/\//gi)) {
               continue;
             }
-            chrome.scripting.executeScript({
-              files: cs.js!,
+            browser.scripting.executeScript({
+              files: cs.js! as ScriptPublicPath[],
               target: { tabId: tab.id!, allFrames: cs.all_frames },
               injectImmediately: cs.run_at === "document_start",
-              // world: cs.world, // uncomment if you use it in manifest.json in Chrome 111+
+              // world: cs.world, // uncomment if you use it in manifest.json in Browser 111+
             });
           }
         }
       }
     }
   });
+
+  browser.commands.onCommand.addListener((command) => {
+    if (command === 'tilda') {
+      browser.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        browser.tabs.sendMessage(tabs[0].id!, {
+          type: 'TILDA'
+        })
+      })
+    }
+    return true;
+  })
 });
